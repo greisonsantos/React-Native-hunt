@@ -18,24 +18,30 @@ export default class Main extends Component {
 //toda vez que tiver uma alteração em uma variavel do state 
 // o emtodo render e executado novamente
  state={
-   counter: 2
+   docs:[],
  };
 
 
 
 // loadProducts(){ }  nesse formato nãoa cessa this para referenciar a classe
+//arrow function não cria escopo de função  herda da funçãoa acima
   loadProducts = async () => {
     const response= await api.get('/products');
-    const { docs } = response.data;
-  //  console.log(docs);
+    
+    // console.log(response);
+   const  docs = response.data;
+   console.log(docs);
 
-    this.setState({ counter:12});
+    this.setState({ docs });
   };
 
     render() {
         return (
            <View>
-             <Text> Página Main Hunt {this.state.counter}</Text>     
+             <Text> Página Main Hunt</Text> 
+             {this.state.docs.map(product => ( 
+                <Text key={product_id}> {product.title}</Text>
+             ))}    
            </View>
         );
     }
